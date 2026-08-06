@@ -3,28 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 AI 工作站 - Prompt 提示詞庫</title>
+    <title>AI 工作站 — Prompt 提示詞庫</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Playfair Display (顯示標題) + Inter (內文/介面) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            50: '#f5f3ff',
-                            100: '#ede9fe',
-                            200: '#ddd6fe',
-                            500: '#8b5cf6',
-                            600: '#7c3aed',
-                            700: '#6d28d9',
+                        navy: {
+                            50: '#eef1f6',
+                            100: '#dde3ee',
+                            200: '#b7c2d8',
+                            300: '#8fa0bf',
+                            400: '#5c6f96',
+                            500: '#3c4d72',
+                            600: '#2b3a5c',
+                            700: '#1f2c48',
+                            800: '#161f36',
+                            900: '#0d1424',
+                            950: '#080d18',
+                        },
+                        gold: {
+                            50: '#fbf7ee',
+                            100: '#f5ead1',
+                            200: '#e9d3a2',
+                            300: '#dbb96f',
+                            400: '#cca34e',
+                            500: '#b6893c',
+                            600: '#966d2f',
+                            700: '#785527',
+                        },
+                        ivory: {
+                            DEFAULT: '#f7f5ef',
+                            50: '#fcfbf8',
+                            100: '#f1eee3',
                         }
                     },
                     fontFamily: {
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
                         sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
                     }
                 }
@@ -33,87 +55,123 @@
     </script>
     <style>
         body {
-            background-color: #f4f3fa;
+            background-color: #f7f5ef;
+            background-image:
+                radial-gradient(circle at 0% 0%, rgba(182, 137, 60, 0.05), transparent 40%),
+                radial-gradient(circle at 100% 0%, rgba(13, 20, 36, 0.04), transparent 35%);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .eyebrow {
+            letter-spacing: 0.18em;
+        }
+        .divider-hairline {
+            background: linear-gradient(to right, rgba(182,137,60,0.6), rgba(182,137,60,0));
         }
         /* Custom scrollbar for prompt preview cards */
         .custom-scrollbar::-webkit-scrollbar {
             width: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #efece3;
             border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
+            background: #cbb98a;
             border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+            background: #b6893c;
+        }
+        .prompt-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .prompt-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 34px -18px rgba(13, 20, 36, 0.35);
+            border-color: #dbb96f;
+        }
+        .filter-pill {
+            transition: all 0.2s ease;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .prompt-card, .filter-pill { transition: none !important; }
+            .prompt-card:hover { transform: none; }
         }
     </style>
 </head>
-<body class="min-h-screen pb-12 text-slate-800">
+<body class="min-h-screen pb-16 text-navy-900">
 
-    <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <!-- Logo -->
-            <div class="flex items-center space-x-2">
-                <span class="text-2xl">🚀</span>
-                <h1 class="text-2xl font-bold text-slate-900 tracking-tight">AI 工作站</h1>
-            </div>
+    <!-- Header / Letterhead -->
+    <header class="bg-navy-900 text-ivory-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+                <!-- Logo / Letterhead Mark -->
+                <div class="flex items-center gap-4">
+                    <div class="w-11 h-11 rounded-full border border-gold-400/60 flex items-center justify-center shrink-0">
+                        <span class="font-serif text-gold-300 text-lg">奕</span>
+                    </div>
+                    <div>
+                        <h1 class="font-serif text-2xl tracking-wide text-ivory-50">AI 工作站</h1>
+                        <p class="eyebrow text-[11px] uppercase text-gold-300/90 mt-0.5">Prompt Advisory Library</p>
+                    </div>
+                </div>
 
-            <!-- Top Navigation Tabs -->
-            <div class="flex items-center bg-slate-200/70 p-1 rounded-xl text-sm font-medium text-slate-600">
-                <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white shadow-sm flex items-center space-x-2 transition">
-                    <span>🎬</span>
-                    <span>單項提示詞</span>
-                </button>
-                <button class="px-4 py-2 rounded-lg hover:text-slate-900 transition flex items-center space-x-2">
-                    <span>⚡</span>
-                    <span>流程提示詞</span>
-                </button>
-                <button class="px-4 py-2 rounded-lg hover:text-slate-900 transition flex items-center space-x-2">
-                    <span>📁</span>
-                    <span>工作流檔案</span>
-                </button>
+                <!-- Top Navigation Tabs -->
+                <nav class="flex items-center gap-1 text-sm">
+                    <button class="relative px-4 py-2 font-medium text-ivory-50 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-gold-400 text-xs"></i>
+                        <span>單項提示詞</span>
+                        <span class="absolute left-0 right-0 -bottom-1 h-[2px] bg-gold-400"></span>
+                    </button>
+                    <button class="px-4 py-2 font-medium text-navy-300 hover:text-ivory-50 transition flex items-center gap-2">
+                        <i class="fa-solid fa-diagram-project text-xs"></i>
+                        <span>流程提示詞</span>
+                    </button>
+                    <button class="px-4 py-2 font-medium text-navy-300 hover:text-ivory-50 transition flex items-center gap-2">
+                        <i class="fa-solid fa-folder-open text-xs"></i>
+                        <span>工作流檔案</span>
+                    </button>
+                </nav>
             </div>
         </div>
+        <div class="h-px divider-hairline"></div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5">
-        
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5 mt-7">
+
         <!-- Search Input -->
         <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                <i class="fa-solid fa-magnifying-glass text-lg"></i>
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-navy-400">
+                <i class="fa-solid fa-magnifying-glass text-base"></i>
             </div>
-            <input type="text" id="searchInput" 
-                placeholder="搜尋提示詞名稱、任務或內容關鍵字..." 
-                class="w-full pl-11 pr-4 py-3.5 bg-white rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-700 shadow-sm transition placeholder-slate-400">
+            <input type="text" id="searchInput"
+                placeholder="搜尋提示詞名稱、任務或內容關鍵字..."
+                class="w-full pl-11 pr-4 py-3.5 bg-white rounded-xl border border-navy-100 focus:outline-none focus:ring-1 focus:ring-gold-400 focus:border-gold-400 text-navy-800 shadow-sm transition placeholder-navy-300">
         </div>
 
         <!-- Filters Container -->
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-4">
+        <div class="bg-white rounded-xl p-5 sm:p-6 border border-navy-100 shadow-sm space-y-4">
             <!-- Category Filter Row (主軸) -->
-            <div class="flex flex-wrap items-center gap-2 text-sm">
-                <span class="w-16 font-medium text-slate-500 text-xs sm:text-sm">主軸</span>
+            <div class="flex flex-wrap items-center gap-3 text-sm">
+                <span class="w-16 eyebrow uppercase font-semibold text-navy-400 text-[11px]">主軸</span>
                 <div id="categoryFilters" class="flex flex-wrap gap-1.5 flex-1">
                     <!-- Dynamic Filter Pills -->
                 </div>
             </div>
+            <div class="h-px bg-navy-100"></div>
 
             <!-- Mode Filter Row (模式) -->
-            <div class="flex flex-wrap items-center gap-2 text-sm">
-                <span class="w-16 font-medium text-slate-500 text-xs sm:text-sm">模式</span>
+            <div class="flex flex-wrap items-center gap-3 text-sm">
+                <span class="w-16 eyebrow uppercase font-semibold text-navy-400 text-[11px]">模式</span>
                 <div id="modeFilters" class="flex flex-wrap gap-1.5 flex-1">
                     <!-- Dynamic Filter Pills -->
                 </div>
             </div>
+            <div class="h-px bg-navy-100"></div>
 
             <!-- AI Tool Filter Row (AI 工具) -->
-            <div class="flex flex-wrap items-center gap-2 text-sm">
-                <span class="w-16 font-medium text-slate-500 text-xs sm:text-sm">AI 工具</span>
+            <div class="flex flex-wrap items-center gap-3 text-sm">
+                <span class="w-16 eyebrow uppercase font-semibold text-navy-400 text-[11px]">AI 工具</span>
                 <div id="toolFilters" class="flex flex-wrap gap-1.5 flex-1">
                     <!-- Dynamic Filter Pills -->
                 </div>
@@ -121,11 +179,17 @@
         </div>
 
         <!-- Status & Count Info -->
-        <div class="flex items-center justify-between px-1 text-sm text-indigo-900 font-medium">
-            <div id="itemCount">共 0 個提示詞</div>
-            <div id="syncStatus" class="text-xs text-slate-500 flex items-center gap-1.5">
-                <i class="fa-solid fa-circle-notch fa-spin text-indigo-500"></i>
-                <span>讀取 Google Sheet 資料中...</span>
+        <div class="flex items-center justify-between px-1 text-sm">
+            <div id="itemCount" class="text-navy-700 font-medium font-serif">共 0 個提示詞</div>
+            <div class="flex items-center gap-3">
+                <div id="syncStatus" class="text-xs text-navy-400 flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-notch fa-spin text-gold-500"></i>
+                    <span>讀取 Google Sheet 資料中...</span>
+                </div>
+                <button id="refreshBtn" title="重新同步 Google Sheet"
+                    class="w-7 h-7 rounded-full border border-navy-100 text-navy-400 hover:text-gold-600 hover:border-gold-300 flex items-center justify-center transition bg-white shadow-sm">
+                    <i class="fa-solid fa-rotate text-xs"></i>
+                </button>
             </div>
         </div>
 
@@ -137,45 +201,45 @@
     </main>
 
     <!-- Modal for Viewing & Editing Prompt -->
-    <div id="detailModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+    <div id="detailModal" class="fixed inset-0 bg-navy-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border border-gold-200">
             <!-- Modal Header -->
-            <div class="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+            <div class="p-5 border-b border-navy-100 flex items-center justify-between bg-navy-900">
                 <div class="flex-1 pr-4">
-                    <span id="modalSubcategory" class="text-xs text-indigo-600 font-semibold bg-indigo-50 px-2.5 py-0.5 rounded-full mb-1 inline-block">筆記整理</span>
-                    <input type="text" id="modalTitleInput" class="w-full text-lg font-bold text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:border-indigo-500 focus:outline-none pb-0.5" placeholder="提示詞名稱">
+                    <span id="modalSubcategory" class="eyebrow text-[10px] uppercase text-gold-300 font-semibold border border-gold-400/40 px-2.5 py-0.5 rounded-full mb-2 inline-block">筆記整理</span>
+                    <input type="text" id="modalTitleInput" class="w-full font-serif text-lg text-ivory-50 bg-transparent border-b border-dashed border-navy-500 focus:border-gold-400 focus:outline-none pb-1" placeholder="提示詞名稱">
                 </div>
-                <button id="closeModalBtn" class="text-slate-400 hover:text-slate-600 p-2 rounded-lg hover:bg-slate-200/50 transition">
+                <button id="closeModalBtn" class="text-navy-300 hover:text-ivory-50 p-2 rounded-lg hover:bg-navy-700/60 transition">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
-            
+
             <!-- Modal Body (Editable Textarea) -->
-            <div class="p-5 flex-1 flex flex-col overflow-hidden bg-slate-50/30">
+            <div class="p-5 flex-1 flex flex-col overflow-hidden bg-ivory-50">
                 <div class="flex items-center justify-between mb-2">
-                    <label class="text-xs font-semibold text-slate-500 flex items-center gap-1.5">
-                        <i class="fa-solid fa-pen-to-square text-amber-500"></i>
+                    <label class="text-xs font-semibold text-navy-500 flex items-center gap-1.5">
+                        <i class="fa-solid fa-pen-to-square text-gold-500"></i>
                         <span>編輯 Prompt 內容</span>
                     </label>
-                    <span class="text-xs text-slate-400">修改後可即時儲存或複製</span>
+                    <span class="text-xs text-navy-300">修改後可即時儲存或複製</span>
                 </div>
-                <textarea id="modalContentInput" 
-                    class="w-full flex-1 p-4 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-mono text-sm leading-relaxed custom-scrollbar bg-white resize-none shadow-inner"
+                <textarea id="modalContentInput"
+                    class="w-full flex-1 p-4 border border-navy-100 rounded-lg focus:outline-none focus:ring-1 focus:ring-gold-400 focus:border-gold-400 font-mono text-sm leading-relaxed custom-scrollbar bg-white resize-none shadow-inner"
                     placeholder="輸入 Prompt 內容..."></textarea>
             </div>
 
             <!-- Modal Footer Actions -->
-            <div class="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between gap-3">
-                <div class="text-xs text-slate-400 flex items-center gap-1">
-                    <i class="fa-solid fa-circle-info text-indigo-400"></i>
-                    <span>支援即時編輯內容</span>
+            <div class="p-4 border-t border-navy-100 bg-white flex items-center justify-between gap-3">
+                <div class="text-xs text-navy-300 flex items-center gap-1">
+                    <i class="fa-solid fa-circle-info text-gold-500"></i>
+                    <span>儲存僅保留於本次瀏覽（未回寫 Google Sheet）</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button id="modalSaveBtn" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition flex items-center space-x-1.5 active:scale-95">
+                    <button id="modalSaveBtn" class="px-4 py-2.5 bg-navy-800 hover:bg-navy-700 text-ivory-50 text-xs sm:text-sm font-semibold rounded-lg shadow-md transition flex items-center space-x-1.5 active:scale-95">
                         <i class="fa-solid fa-floppy-disk"></i>
                         <span>儲存修改</span>
                     </button>
-                    <button id="modalCopyBtn" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition flex items-center space-x-1.5 active:scale-95">
+                    <button id="modalCopyBtn" class="px-4 py-2.5 bg-gold-500 hover:bg-gold-600 text-navy-950 text-xs sm:text-sm font-semibold rounded-lg shadow-md transition flex items-center space-x-1.5 active:scale-95">
                         <i class="fa-solid fa-copy"></i>
                         <span>複製修改後的 Prompt</span>
                     </button>
@@ -185,8 +249,8 @@
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 text-white px-4 py-3 rounded-xl shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-2 z-50">
-        <i class="fa-solid fa-circle-check text-green-400"></i>
+    <div id="toast" class="fixed bottom-6 right-6 bg-navy-900 text-ivory-50 px-4 py-3 rounded-lg shadow-lg border border-gold-400/30 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-2 z-50">
+        <i class="fa-solid fa-circle-check text-gold-400"></i>
         <span id="toastMessage">Prompt 已成功複製到剪貼簿！</span>
     </div>
 
@@ -245,20 +309,33 @@
         let currentActivePromptForModal = null;
         let toastTimeout = null;
 
+        function setSyncStatus(state, extra) {
+            const el = document.getElementById('syncStatus');
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
+            if (state === 'loading') {
+                el.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin text-gold-500"></i><span>讀取 Google Sheet 資料中...</span>`;
+            } else if (state === 'connected') {
+                el.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i><span>已同步 Google Sheet · ${timeStr}</span>`;
+            } else if (state === 'fallback') {
+                el.innerHTML = `<i class="fa-solid fa-database text-gold-600"></i><span>${extra || '無法連線，使用預設資料集'}</span>`;
+            }
+        }
+
         // Google Sheet JSON Fetcher
         async function fetchGoogleSheetData() {
             const sheetId = '1EFSvkPdyN57kuF3bvs7Xfsc0tcjQF1KQVsadPcoSFFg';
             const gid = '1480282197';
-            const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&gid=${gid}`;
+            const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&gid=${gid}&_=${Date.now()}`;
 
             try {
                 const response = await fetch(url);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const text = await response.text();
-                
+
                 const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/);
-                if (!jsonMatch) throw new Error('Invalid GViz response format');
-                
+                if (!jsonMatch) throw new Error('Invalid GViz response format — 請確認試算表已設定為「知道連結的使用者均可查看」');
+
                 const data = JSON.parse(jsonMatch[1]);
                 const rows = data.table.rows;
                 const cols = data.table.cols.map(c => c ? (c.label || c.id) : '');
@@ -276,7 +353,7 @@
                         const subcategory = rowObj['小分類'] || rowObj['子分類'] || rowObj['col_1'] || '筆記整理';
                         const category = rowObj['主軸'] || rowObj['分類'] || rowObj['col_2'] || '筆記';
                         const mode = rowObj['模式'] || rowObj['col_3'] || 'AI 助理';
-                        
+
                         let tools = [];
                         const toolStr = String(rowObj['AI 工具'] || rowObj['工具'] || rowObj['col_4'] || 'ChatGPT,Gemini AI');
                         tools = toolStr.split(/[,，\s]+/).filter(Boolean);
@@ -294,24 +371,34 @@
                         };
                     });
 
-                    document.getElementById('syncStatus').innerHTML = `<i class="fa-solid fa-circle-check text-green-500"></i> 已連線至 Google Sheet`;
+                    setSyncStatus('connected');
                     return parsedData;
                 }
+                throw new Error('Sheet 沒有資料列');
             } catch (err) {
                 console.warn("無法取得 Google Sheet 資料，使用預設資料集:", err);
-                document.getElementById('syncStatus').innerHTML = `<i class="fa-solid fa-database text-purple-500"></i> 使用預設 Prompt 資料集`;
+                setSyncStatus('fallback', '無法連線，使用預設資料集');
             }
             return fallbackPrompts;
+        }
+
+        async function syncFromSheet() {
+            setSyncStatus('loading');
+            const btn = document.getElementById('refreshBtn');
+            if (btn) btn.classList.add('animate-spin');
+            rawPromptsData = await fetchGoogleSheetData();
+            renderPrompts();
+            if (btn) btn.classList.remove('animate-spin');
         }
 
         function renderFilters() {
             // Category Buttons
             document.getElementById('categoryFilters').innerHTML = categories.map(cat => `
-                <button onclick="setCategory('${cat}')" 
-                    class="px-3 py-1 rounded-lg text-xs sm:text-sm border transition font-medium ${
-                        activeCategory === cat 
-                        ? 'bg-purple-50 border-purple-500 text-purple-700 font-semibold ring-1 ring-purple-500' 
-                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                <button onclick="setCategory('${cat}')"
+                    class="filter-pill px-3 py-1 rounded-full text-xs sm:text-sm border font-medium ${
+                        activeCategory === cat
+                        ? 'bg-navy-900 border-navy-900 text-gold-300 font-semibold'
+                        : 'bg-white border-navy-100 text-navy-500 hover:border-gold-300 hover:text-navy-800'
                     }">
                     ${cat}
                 </button>
@@ -319,11 +406,11 @@
 
             // Mode Buttons
             document.getElementById('modeFilters').innerHTML = modes.map(m => `
-                <button onclick="setMode('${m}')" 
-                    class="px-3 py-1 rounded-lg text-xs sm:text-sm border transition font-medium ${
-                        activeMode === m 
-                        ? 'bg-purple-50 border-purple-500 text-purple-700 font-semibold ring-1 ring-purple-500' 
-                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                <button onclick="setMode('${m}')"
+                    class="filter-pill px-3 py-1 rounded-full text-xs sm:text-sm border font-medium ${
+                        activeMode === m
+                        ? 'bg-navy-900 border-navy-900 text-gold-300 font-semibold'
+                        : 'bg-white border-navy-100 text-navy-500 hover:border-gold-300 hover:text-navy-800'
                     }">
                     ${m}
                 </button>
@@ -331,11 +418,11 @@
 
             // AI Tool Buttons
             document.getElementById('toolFilters').innerHTML = aiTools.map(t => `
-                <button onclick="setTool('${t}')" 
-                    class="px-3 py-1 rounded-lg text-xs sm:text-sm border transition font-medium ${
-                        activeTool === t 
-                        ? 'bg-purple-50 border-purple-500 text-purple-700 font-semibold ring-1 ring-purple-500' 
-                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                <button onclick="setTool('${t}')"
+                    class="filter-pill px-3 py-1 rounded-full text-xs sm:text-sm border font-medium ${
+                        activeTool === t
+                        ? 'bg-navy-900 border-navy-900 text-gold-300 font-semibold'
+                        : 'bg-white border-navy-100 text-navy-500 hover:border-gold-300 hover:text-navy-800'
                     }">
                     ${t}
                 </button>
@@ -343,14 +430,14 @@
         }
 
         function getTagStyle(tag) {
-            if (tag.includes('筆記')) return 'bg-slate-100 text-purple-700 font-medium';
-            if (tag.includes('助理')) return 'bg-purple-100 text-purple-700 font-medium';
-            if (tag.includes('協做')) return 'bg-amber-100 text-amber-700 font-medium';
-            if (tag.includes('協思')) return 'bg-emerald-100 text-emerald-700 font-medium';
-            if (tag.includes('ChatGPT')) return 'bg-indigo-50 text-indigo-600 border border-indigo-100';
-            if (tag.includes('Gemini')) return 'bg-purple-50 text-purple-600 border border-purple-100';
-            if (tag.includes('Claude')) return 'bg-blue-50 text-blue-600 border border-blue-100';
-            return 'bg-slate-100 text-slate-600';
+            if (tag.includes('筆記')) return 'bg-navy-50 text-navy-600 font-medium';
+            if (tag.includes('助理')) return 'bg-gold-50 text-gold-700 font-medium border border-gold-200';
+            if (tag.includes('協做')) return 'bg-navy-50 text-navy-600 font-medium border border-navy-100';
+            if (tag.includes('協思')) return 'bg-emerald-50 text-emerald-700 font-medium border border-emerald-100';
+            if (tag.includes('ChatGPT')) return 'bg-white text-navy-500 border border-navy-100';
+            if (tag.includes('Gemini')) return 'bg-white text-navy-500 border border-navy-100';
+            if (tag.includes('Claude')) return 'bg-white text-navy-500 border border-navy-100';
+            return 'bg-navy-50 text-navy-500';
         }
 
         function renderPrompts() {
@@ -360,9 +447,9 @@
                 const matchMode = (activeMode === "全部") || (item.mode === activeMode);
                 const matchTool = (activeTool === "全部") || item.tools.some(t => t.toLowerCase().includes(activeTool.toLowerCase()));
                 const q = searchQuery.toLowerCase().trim();
-                const matchSearch = !q || 
-                    item.title.toLowerCase().includes(q) || 
-                    item.content.toLowerCase().includes(q) || 
+                const matchSearch = !q ||
+                    item.title.toLowerCase().includes(q) ||
+                    item.content.toLowerCase().includes(q) ||
                     item.subcategory.toLowerCase().includes(q);
 
                 return matchCategory && matchMode && matchTool && matchSearch;
@@ -372,10 +459,10 @@
 
             if (filtered.length === 0) {
                 grid.innerHTML = `
-                    <div class="col-span-full py-16 text-center bg-white rounded-2xl border border-slate-200 shadow-sm">
-                        <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
-                        <p class="text-slate-500 font-medium">沒有找到符合條件的提示詞</p>
-                        <p class="text-xs text-slate-400 mt-1">嘗試調整關鍵字或重設篩選條件</p>
+                    <div class="col-span-full py-16 text-center bg-white rounded-xl border border-navy-100 shadow-sm">
+                        <i class="fa-solid fa-folder-open text-4xl text-navy-200 mb-3"></i>
+                        <p class="text-navy-500 font-medium">沒有找到符合條件的提示詞</p>
+                        <p class="text-xs text-navy-300 mt-1">嘗試調整關鍵字或重設篩選條件</p>
                     </div>
                 `;
                 return;
@@ -383,38 +470,41 @@
 
             grid.innerHTML = filtered.map(item => {
                 const tags = [item.category, item.mode, ...item.tools].filter(Boolean);
-                
+
                 return `
-                <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden border-t-4 border-t-pink-400">
+                <div class="prompt-card bg-white rounded-xl border border-navy-100 shadow-sm flex flex-col justify-between overflow-hidden border-t-2 border-t-gold-400">
                     <div class="p-5 pb-3">
+                        <!-- No. label -->
+                        <div class="eyebrow text-[10px] uppercase text-gold-600 font-semibold mb-2">No. ${escapeHtml(item.id)}</div>
+
                         <!-- Top Tag Pills -->
                         <div class="flex flex-wrap gap-1.5 mb-3">
                             ${tags.map(t => `<span class="px-2.5 py-0.5 rounded-full text-xs ${getTagStyle(t)}">${escapeHtml(t)}</span>`).join('')}
                         </div>
 
                         <!-- Subcategory -->
-                        <div class="text-xs text-slate-400 font-medium mb-1">${escapeHtml(item.subcategory)}</div>
+                        <div class="text-xs text-navy-300 font-medium mb-1">${escapeHtml(item.subcategory)}</div>
 
                         <!-- Card Title -->
-                        <h3 class="text-lg font-bold text-slate-900 mb-3">${escapeHtml(item.title)}</h3>
+                        <h3 class="font-serif text-lg font-semibold text-navy-900 mb-3">${escapeHtml(item.title)}</h3>
 
                         <!-- Content Preview -->
-                        <div class="text-xs text-slate-600 leading-relaxed max-h-48 overflow-y-auto custom-scrollbar whitespace-pre-wrap pr-1">
+                        <div class="text-xs text-navy-500 leading-relaxed max-h-48 overflow-y-auto custom-scrollbar whitespace-pre-wrap pr-1">
                             ${escapeHtml(item.content)}
                         </div>
                     </div>
 
                     <!-- Bottom Action Buttons -->
-                    <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center gap-2">
-                        <button onclick="copyPromptText('${item.id}')" 
-                            class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold py-2.5 px-3 rounded-xl transition flex items-center justify-center space-x-1.5 shadow-sm active:scale-95">
+                    <div class="px-4 py-3 bg-ivory-50 border-t border-navy-100 flex items-center gap-2">
+                        <button onclick="copyPromptText('${item.id}')"
+                            class="flex-1 bg-navy-900 hover:bg-navy-800 text-ivory-50 text-xs sm:text-sm font-semibold py-2.5 px-3 rounded-lg transition flex items-center justify-center space-x-1.5 shadow-sm active:scale-95">
                             <i class="fa-solid fa-copy"></i>
                             <span>複製 Prompt</span>
                         </button>
-                        <button onclick="openModal('${item.id}')" 
-                            title="編輯與查看" 
-                            class="p-2.5 bg-white hover:bg-amber-50 text-slate-600 hover:text-amber-600 border border-slate-200 hover:border-amber-300 rounded-xl transition shadow-sm active:scale-95">
-                            <i class="fa-solid fa-pencil text-amber-500"></i>
+                        <button onclick="openModal('${item.id}')"
+                            title="編輯與查看"
+                            class="p-2.5 bg-white hover:bg-gold-50 text-navy-500 hover:text-gold-600 border border-navy-100 hover:border-gold-300 rounded-lg transition shadow-sm active:scale-95">
+                            <i class="fa-solid fa-pencil text-gold-500"></i>
                         </button>
                     </div>
                 </div>
@@ -520,13 +610,17 @@
 
         window.addEventListener('DOMContentLoaded', async () => {
             renderFilters();
-            rawPromptsData = await fetchGoogleSheetData();
-            renderPrompts();
+            await syncFromSheet();
 
             // Search Event Listener
             document.getElementById('searchInput').addEventListener('input', (e) => {
                 searchQuery = e.target.value;
                 renderPrompts();
+            });
+
+            // Manual refresh from Google Sheet
+            document.getElementById('refreshBtn').addEventListener('click', () => {
+                syncFromSheet();
             });
 
             // Save Modified Prompt Handler
